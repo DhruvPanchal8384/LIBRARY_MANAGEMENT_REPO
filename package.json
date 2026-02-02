@@ -4,8 +4,6 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon --exec ts-node src/app.ts",
-    "build": "tsc",
-    "dev": "nodemon --exec ts-node src/app.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -29,7 +27,7 @@
     "express": "^4.17.1",
     "jsonwebtoken": "^9.0.3",
     "morgan": "^1.10.1",
-    "mysql2": "^3.16.1",
+    "mysql2": "^3.16.2",
     "reflect-metadata": "^0.2.2",
     "save": "^2.9.0",
     "save-dev": "^0.0.1-security",

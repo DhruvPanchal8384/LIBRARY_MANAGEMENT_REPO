@@ -32,10 +32,13 @@ export class authController {
   // =================Login an existing user====================
   async login(req: Request, res: Response) {
     const { email, password } = req.body;
+    // console.log("tirth");
+
     const userRepo = AppDataSource.getRepository(User);
+    console.log(userRepo);
 
     const user = await userRepo.findOneBy({ email });
-
+    console.log("tirth");
     if (!user) return res.status(400).json({ message: "Invalid credentials" });
 
     const isMatch = await bcrypt.compare(password, user.password);

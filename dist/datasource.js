@@ -21,6 +21,7 @@ exports.AppDataSource = new typeorm_1.DataSource({
     password: process.env.DATABASE_PASSWORD,
     port: Number(process.env.DATABASE_PORT || 3306),
     entities: [book_entity_1.Book, member_entity_1.Member, borrow_entity_1.Borrow, user_entity_1.User],
-    synchronize: true,
+    synchronize: false,
     logging: false,
+    migrations: ["src/migrations/*.ts"],
 });
