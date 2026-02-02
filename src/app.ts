@@ -8,12 +8,14 @@ import cors from "cors";
 dotenv.config();
 
 const app = express();
-const port = 1501;
+const PORT = process.env.PORT || 1501;
 app.use(express.json());
 app.use(morgan("dev"));
-app.use(cors({
-  origin: "*",
-}));
+app.use(
+  cors({
+    origin: "*",
+  }),
+);
 app.use("/", mainRoutes);
 AppDataSource.initialize()
   .then(async () => {
@@ -21,8 +23,8 @@ AppDataSource.initialize()
   })
   .catch((err) => console.log(err));
 
-app.listen(port, () => {
+app.listen(PORT, () => {
   return console.log(
-    `Express server is listening at http://localhost:${port} 🚀`,
+    `Express server is listening at http://localhost:${PORT} 🚀`,
   );
 });
