@@ -1,4 +1,4 @@
-import { AppDataSource } from "../../datasource";
+import { AppDataSource } from "../datasource";
 import { User } from "../entities/user.entity";
 import { Request, Response } from "express";
 import bcrypt from "bcryptjs";

@@ -1,4 +1,4 @@
-import { AppDataSource } from "../../datasource";
+import { AppDataSource } from "../datasource";
 import { Book } from "../entities/book.entity";
 import { Borrow } from "../entities/borrow.entity";
 import { Member } from "../entities/member.entity";

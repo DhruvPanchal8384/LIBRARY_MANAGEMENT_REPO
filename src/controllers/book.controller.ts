@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { Book } from "../entities/book.entity";
-import { AppDataSource } from "../../datasource";
+import { AppDataSource } from "../datasource";
 
 export class bookController {
   //====================== GetBooks=============================

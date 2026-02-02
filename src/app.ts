@@ -1,6 +1,6 @@
 import express from "express";
 import "reflect-metadata";
-import { AppDataSource } from "../datasource";
+import { AppDataSource } from "./datasource";
 import mainRoutes from "./routers/main.routes";
 import dotenv from "dotenv";
 import morgan from "morgan";

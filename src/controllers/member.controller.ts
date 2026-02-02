@@ -1,4 +1,4 @@
-import { AppDataSource } from "../../datasource";
+import { AppDataSource } from "../datasource";
 import { Request, Response } from "express";
 import { Member } from "../entities/member.entity";
 import { Borrow } from "../entities/borrow.entity";
@@ -107,16 +107,14 @@ export class memberController {
     });
 
     // 3. Safe to delete
-   
-if (activeBorrows > 0) {
+
+    if (activeBorrows > 0) {
       return res.status(400).json({
         message:
           "Member cannot be deleted. Please return all borrowed books first.",
       });
     }
-     await repo.delete(member.id);
+    await repo.delete(member.id);
     return res.json({ message: "Member deleted successfully" });
-
-    
   }
 }
