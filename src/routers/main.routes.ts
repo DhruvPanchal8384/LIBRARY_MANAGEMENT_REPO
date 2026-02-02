@@ -5,7 +5,6 @@ import borrowRouter from "./borrow.routes";
 import authRoutes from "./auth.routes";
 import { authMiddleware } from "../middleware/auth.middleware";
 
-
 export const mainRoutes = Router();
 
 //================== Protected Routes ====================

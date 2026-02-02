@@ -1,9 +1,10 @@
 import { AppDataSource } from "../../datasource";
 import { Request, Response } from "express";
 import { Member } from "../entities/member.entity";
+import { Borrow } from "../entities/borrow.entity";
 
 export class memberController {
-  //===================== GetMembers
+  //================= GetMembers ==================
   async getAllMembers(req: Request, res: Response) {
     try {
       const repo = AppDataSource.getRepository(Member);
@@ -15,7 +16,7 @@ export class memberController {
     }
   }
 
-  //=================== GetMemberById
+  //=================== GetMemberById =============
   async getMemberById(req: Request, res: Response) {
     try {
       const id = Number(req.params.id);
@@ -33,7 +34,7 @@ export class memberController {
     }
   }
 
-  //======================= AddMember
+  //=================== AddMember =================
   async addMember(req: Request, res: Response) {
     try {
       const { name, email, phone } = req.body;
@@ -54,7 +55,7 @@ export class memberController {
     }
   }
 
-  //===================== UpdateMember
+  //================= UpdateMember ================
   async updateMember(req: Request, res: Response) {
     try {
       const id = Number(req.params.id);
@@ -76,21 +77,46 @@ export class memberController {
     }
   }
 
-  //===================== DeleteMember
+  //=================== DeleteMember ==============
   async deleteMember(req: Request, res: Response) {
-    try {
-      const id = Number(req.params.id);
-      if (Number.isNaN(id))
-        return res.status(400).json({ message: "Invalid id" });
-      const repo = AppDataSource.getRepository(Member);
-      const existing = await repo.findOne({ where: { id } });
-      if (!existing)
-        return res.status(404).json({ message: "Member not found" });
-      await repo.remove(existing);
-      return res.json({ message: "Member deleted successfully" });
-    } catch (err) {
-      console.error("deleteMember error:", err);
-      return res.status(500).json({ message: "Server error" });
+    const id = Number(req.params.id);
+    const repo = AppDataSource.getRepository(Member);
+    const borrowRepo = AppDataSource.getRepository(Borrow);
+
+    //   if (Number.isNaN(id))
+    //     return res.status(400).json({ message: "Invalid id" });
+    //   const existing = await repo.findOne({ where: { id } });
+    //   if (!existing)
+    //     return res.status(404).json({ message: "Member not found" });
+    //   await repo.remove(existing);
+    //   return res.json({ message: "Member deleted successfully" });
+    // } catch (err) {
+    //   console.error("deleteMember error:", err);
+    //   return res.status(500).json({ message: "Server error" });
+    const member = await repo.findOneBy({ id });
+    if (!member) {
+      return res.status(404).json({ message: "Member not found" });
     }
+
+    // 2. Check active (not returned) books
+    const activeBorrows = await borrowRepo.count({
+      where: {
+        member: { id: member.id },
+        status: "ISSUED", // not returned
+      },
+    });
+
+    // 3. Safe to delete
+   
+if (activeBorrows > 0) {
+      return res.status(400).json({
+        message:
+          "Member cannot be deleted. Please return all borrowed books first.",
+      });
+    }
+     await repo.delete(member.id);
+    return res.json({ message: "Member deleted successfully" });
+
+    
   }
 }

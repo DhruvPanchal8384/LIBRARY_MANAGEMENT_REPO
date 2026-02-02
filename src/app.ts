@@ -3,13 +3,18 @@ import "reflect-metadata";
 import { AppDataSource } from "../datasource";
 import mainRoutes from "./routers/main.routes";
 import dotenv from "dotenv";
+import morgan from "morgan";
+import cors from "cors";
 dotenv.config();
 
 const app = express();
 const port = 1501;
 app.use(express.json());
+app.use(morgan("dev"));
+app.use(cors({
+  origin: "*",
+}));
 app.use("/", mainRoutes);
-
 AppDataSource.initialize()
   .then(async () => {
     console.log("Database Connected:");

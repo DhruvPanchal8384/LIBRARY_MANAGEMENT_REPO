@@ -19,7 +19,7 @@ export class Borrow {
   @JoinColumn({ name: "book_id" })
   book!: Book;
 
-  @ManyToOne(() => Member)
+  @ManyToOne(() => Member, { onDelete: "CASCADE" })
   @JoinColumn({ name: "member_id" })
   member!: Member;
 
