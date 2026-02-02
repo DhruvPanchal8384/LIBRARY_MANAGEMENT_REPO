@@ -2,10 +2,10 @@ import "reflect-metadata";
 import { DataSource } from "typeorm";
 import dotenv from "dotenv";
 dotenv.config();
-import { Book } from "./src/entities/book.entity";
-import { Member } from "./src/entities/member.entity";
-import { Borrow } from "./src/entities/borrow.entity";
-import { User } from "./src/entities/user.entity";
+import { Book } from "./entities/book.entity";
+import { Member } from "./entities/member.entity";
+import { Borrow } from "./entities/borrow.entity"; 
+import { User } from "./entities/user.entity";
 
 //================== Database Configuration ====================
 export const AppDataSource = new DataSource({
