@@ -13,7 +13,8 @@ app.use(express.json());
 app.use(morgan("dev"));
 app.use(
   cors({
-    origin: "*",
+    origin: "https://library-management-frontend-7qh9.onrender.com",
+    credentials: true,
   }),
 );
 app.use("/", mainRoutes);
