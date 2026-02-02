@@ -15,7 +15,7 @@ export class Borrow {
   @PrimaryGeneratedColumn()
   borrow_id!: number;
 
-  @ManyToOne(() => Book)
+  @ManyToOne(() => Book, { onDelete: "CASCADE" })
   @JoinColumn({ name: "book_id" })
   book!: Book;
 
