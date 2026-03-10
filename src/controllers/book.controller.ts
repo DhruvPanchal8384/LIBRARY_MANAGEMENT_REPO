@@ -8,8 +8,6 @@ export class bookController {
     try {
       const repo = AppDataSource.getRepository(Book);
       const books = await repo.find();
-      // console.log(books);
-
       return res.json(books);
     } catch (err) {
       console.error("getBooks error:", err);

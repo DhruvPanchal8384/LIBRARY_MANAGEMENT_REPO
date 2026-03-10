@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 dotenv.config();
 import { Book } from "./entities/book.entity";
 import { Member } from "./entities/member.entity";
-import { Borrow } from "./entities/borrow.entity"; 
+import { Borrow } from "./entities/borrow.entity";
 import { User } from "./entities/user.entity";
 
 //================== Database Configuration ====================
@@ -18,6 +18,6 @@ export const AppDataSource = new DataSource({
 
   entities: [Book, Member, Borrow, User],
 
-  synchronize: true, // ⚠️ use migrations in production
+  synchronize: true,
   logging: false,
 });

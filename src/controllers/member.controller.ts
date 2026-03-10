@@ -82,32 +82,17 @@ export class memberController {
     const id = Number(req.params.id);
     const repo = AppDataSource.getRepository(Member);
     const borrowRepo = AppDataSource.getRepository(Borrow);
-
-    //   if (Number.isNaN(id))
-    //     return res.status(400).json({ message: "Invalid id" });
-    //   const existing = await repo.findOne({ where: { id } });
-    //   if (!existing)
-    //     return res.status(404).json({ message: "Member not found" });
-    //   await repo.remove(existing);
-    //   return res.json({ message: "Member deleted successfully" });
-    // } catch (err) {
-    //   console.error("deleteMember error:", err);
-    //   return res.status(500).json({ message: "Server error" });
     const member = await repo.findOneBy({ id });
     if (!member) {
       return res.status(404).json({ message: "Member not found" });
     }
 
-    // 2. Check active (not returned) books
     const activeBorrows = await borrowRepo.count({
       where: {
         member: { id: member.id },
-        status: "ISSUED", // not returned
+        status: "ISSUED",
       },
     });
-
-    // 3. Safe to delete
-
     if (activeBorrows > 0) {
       return res.status(400).json({
         message:

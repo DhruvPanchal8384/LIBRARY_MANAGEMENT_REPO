@@ -4,19 +4,19 @@ import { bookController } from "../controllers/book.controller";
 const bookRoutes = Router();
 const BookController = new bookController();
 
-//================== getAllBook ====================
+//================== getAllBook =================
 bookRoutes.get("/getAllBooks", BookController.getAllbooks);
 
-//================== Get Book By ID =================
+//================== Get Book By ID =============
 bookRoutes.get("/getBook/:id", BookController.getBookById);
 
-//================== Add, Update, Delete Book =======
+//================== Add Book ===================
 bookRoutes.post("/addBook", BookController.addBooks);
 
-//================== Update Book ====================
+//================== Update Book ================
 bookRoutes.put("/updateBook/:id", BookController.updateBook);
 
-//================== Delete Book ====================
+//================== Delete Book ================
 bookRoutes.delete("/deleteBook/:id", BookController.deleteBook);
 
 export default bookRoutes;

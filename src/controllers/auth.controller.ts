@@ -3,6 +3,7 @@ import { User } from "../entities/user.entity";
 import { Request, Response } from "express";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import { log } from "node:console";
 
 export class authController {
   // =================Register a new user=======================
@@ -17,6 +18,8 @@ export class authController {
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
+
+    log("Hashed Password:", hashedPassword);
 
     const user = userRepo.create({
       name,
@@ -55,7 +58,6 @@ export class authController {
 
   // =================Logout====================================
   async logout(req: Request, res: Response) {
-    // Invalidate the token on the client side by instructing the client to delete it.
     return res
       .status(200)
       .json({ message: "Logout success. Please remove token from client." });

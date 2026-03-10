@@ -67,8 +67,7 @@ export class borrowController {
       if (!borrow) return res.status(404).json({ message: "Record not found" });
 
       borrow.return_date = new Date();
-      borrow.status =
-        borrow.return_date > borrow.due_date ? "LATE" : "RETURNED";
+      borrow.status = borrow.return_date > borrow.due_date ? "LATE" : "RETURNED";
 
       if (borrow.book.quantity <= borrow.book.available) {
         return res.status(400).json({
